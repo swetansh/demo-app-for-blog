@@ -1,0 +1,186 @@
+<section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-routes">Routes</h2>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-routeprovider-api"><code>routeProvider</code> API</h3>
+<p>Allows create <code>routes</code>, so the app can have re-usable and linkable URLs like:<br><code>http://domain.com/#/deck/1/card/0</code></p>
+<pre><code class="js">angular.module(&#39;app&#39;, [&#39;ngRoute&#39;]);
+
+.config([&#39;$routeProvider&#39;, function ($routeProvider) {
+    $routeProvider
+        .when(&#39;/decks&#39;, {
+            templateUrl: &#39;partials/decks.html&#39;,
+            controller: &#39;DecksController&#39;
+        })
+        .when(&#39;/deck/:deckId/card/:cardId&#39;, {
+            templateUrl: &#39;partials/card.html&#39;,
+            controller: &#39;CardController&#39;
+        })
+        .otherwise({
+            redirectTo: &#39;/&#39;
+        });
+}]);
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-notes">Notes:</h4>
+<p>There are two functions used to setup modules.</p>
+<ul>
+<li><code>.config()</code> - Setup app configuration (runs fist)</li>
+<li><code>.run()</code> - Run some app init code after all Services are ready</li>
+</ul>
+<p>Also, <code>ngRoute</code> is a separate module that needs to be loaded after <code>angular.js</code> (download or load from a CDN)</p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-routeparams"><code>routeParams</code></h3>
+<p>Let’s say we have a route that looks like:</p>
+<pre><code class="js">$routeProvider.when(&#39;/deck/:deckId/card/:cardId&#39;, {});
+</code></pre>
+<p><code>:deckId</code> and <code>:cardId</code> can be used as parameters inside the controllers:</p>
+<pre><code class="js">myApp.controller(&#39;CardController&#39;, [&#39;$scope&#39;, &#39;$routeParams&#39;,
+    function($scope, $routeParams) {
+        var cardId;
+        var deckId;
+
+        function init() {
+            cardId = parseInt($routeParams.cardId, 10);
+            deckId = parseInt($routeParams.deckId, 10);
+        }
+
+        init();
+    }]
+);
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-ng-view"><code>ng-view</code></h3>
+<blockquote>
+<p><code>ng-view</code> is the glue between the route and the DOM.</p>
+</blockquote>
+<p>When a route is loaded, the HTML will be replaced with the Template, with an optional Controller to handle that Template Scope.</p>
+<p><strong>Usage:</strong></p>
+<pre><code class="html">&lt;ng-view&gt;&lt;/ng-view&gt;
+&lt;!-- Or... --&gt;
+&lt;div ng-view&gt;&lt;/div&gt;
+</code></pre>
+<ul>
+<li><a href="http://plnkr.co/edit/LRU5vzSrHpmpMtX3polb?p=preview">Example</a></li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-ng-include"><code>ng-include</code></h3>
+<p><code>ng-include</code> is the poorer cousin of <code>ng-view</code>.  It simply allows you to inject another piece of HTML into your template, like so:</p>
+<pre><code class="html">&lt;ng-include src=&quot; &#39;header.html&#39; &quot;&gt;&lt;/ng-include&gt;
+</code></pre>
+<p>or…</p>
+<pre><code class="html">&lt;div ng-include=&quot; &#39;header.html&#39; &quot;&gt;&lt;/div&gt;
+</code></pre>
+<ul>
+<li>Note that the value it expects is an expression, so it could be a variable, a function call or a string with a file path (must be inside <code>&#39;&#39;</code>)</li>
+<li>The value itself can also be a reference to a template ID in the same file, or raw HTML</li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-redirects">Redirects</h3>
+<p>Once you have routes set up, you can tell one route to redirect to another.</p>
+<p>Redirect to specific route:</p>
+<pre><code class="js">.when(&#39;/home&#39;, {
+    redirectTo : &#39;/&#39;
+});
+</code></pre>
+<p>Redirect if no route was matched (fallback)</p>
+<pre><code class="js">.otherwise({
+    redirectTo : &#39;/&#39;
+});
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-routechangestart"><code>$routeChangeStart</code></h3>
+<p>Allows running some code when routes change.</p>
+<p>For instance, if you want to redirect to the login page if the user isn’t logged in, and redirect FROM the login page if the user is logged in.</p>
+</section>
+
+
+
+<section>
+
+
+
+<pre><code class="js">myApp.config([&#39;$routeProvider&#39;, function ($routeProvider) {
+    $routeProvider
+        .when(&#39;/login&#39;, {
+            templateUrl : &#39;login.html&#39;,
+            isLogin : true
+        })
+}]);
+
+myApp.run([&#39;$rootScope&#39;, &#39;$location&#39;,
+    function ($rootScope, $location, server) {
+
+    // register listener to watch route changes
+    $rootScope.$on(&quot;$routeChangeStart&quot;,
+        function (event, next, current) {
+
+        if (!server.isLoggedIn() &amp;&amp; !next.isLogin) {
+            $location.path( &quot;/login&quot; );
+        }
+        if (server.isLoggedIn() &amp;&amp; next.isLogin) {
+            $location.path(&quot;/&quot;);
+        }
+    });
+}]);
+</code></pre>
+</section>
+
+
+
+</section>

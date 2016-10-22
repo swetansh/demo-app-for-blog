@@ -1,0 +1,318 @@
+<section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-events">Events</h2>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-mouse-events">Mouse Events</h3>
+<h4 id="hid-click-dblclick"><code>.click()</code> &amp; <code>.dblclick()</code></h4>
+<p>Bind an event handler to the “click” JavaScript event, or trigger that event on an element.</p>
+<pre><code class="js">$( &quot;#other&quot; ).click(function() {
+  $( &quot;#target&quot; ).click();
+});
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/pvjoPZ">http://codepen.io/netcraft/pen/pvjoPZ</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-hover"><code>.hover()</code></h4>
+<p>Bind two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements <code>.mouseenter() .mouseleave()</code>.</p>
+<pre><code class="js">$( &quot;li.fade&quot; ).hover(function() {
+  $( this ).fadeOut( 100 );
+  $( this ).fadeIn( 500 );
+});
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/wBKveP">http://codepen.io/netcraft/pen/wBKveP</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-keyboard-events">Keyboard Events</h3>
+<h4 id="hid-keydown-keypress-keyup"><code>.keydown()</code> &amp; <code>.keypress()</code> &amp; <code>.keyup()</code></h4>
+<p>Bind an event handler to the “keydown”/“keypress”/“keyup” JavaScript event, or trigger that event on an element.</p>
+<pre><code class="js">$( &quot;#target&quot; ).keydown(function() {
+  alert( &quot;Handler for .keydown() called.&quot; );
+});
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/jEbOGK">http://codepen.io/netcraft/pen/jEbOGK</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-form-events">Form Events</h3>
+<h4 id="hid-change"><code>.change()</code></h4>
+<p>Bind an event handler to the “change” JavaScript event, or trigger that event on an element.</p>
+<pre><code class="js">$( &quot;.target&quot; ).change(function() {
+  alert( &quot;Handler for .change() called.&quot; );
+});
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-submit"><code>.submit()</code></h4>
+<p>Bind an event handler to the “submit” JavaScript event, or trigger that event on an element.</p>
+<pre><code class="js">$( &quot;#target&quot; ).submit(function( event ) {
+  alert( &quot;Handler for .submit() called.&quot; );
+  event.preventDefault();
+});
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/EaVajP">http://codepen.io/netcraft/pen/EaVajP</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-alias-to-on">Alias to <code>on()</code></h4>
+<pre><code class="js">jQuery.each( (&quot;blur focus focusin focusout load resize scroll unload click &quot; +
+  &quot;dblclick mousedown mouseup mousemove mouseover mouseout mouseenter &quot; +
+  &quot;mouseleave change select submit keydown keypress keyup error &quot; +
+  &quot;contextmenu&quot;).split(&quot; &quot;), function( i, name ) {
+
+  // Handle event binding
+  jQuery.fn[ name ] = function( data, fn ) {
+    return arguments.length &gt; 0 ?
+      this.on( name, null, data, fn ) :
+      this.trigger( name );
+  };
+});
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-off-once"><code>.off()</code> &amp; <code>.once()</code></h4>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/empWBR?editors=001">http://codepen.io/netcraft/pen/empWBR?editors=001</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-pub-sub-register-custom-events">Pub/Sub register custom events</h4>
+<pre><code class="js">$(&#39;.item&#39;).on(&#39;customEvent&#39;, function() {
+  // do something
+});
+
+$(&#39;.item&#39;).trigger(&#39;customEvent&#39;);
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-event-delegation-with-on">Event delegation with <code>.on()</code></h4>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/yyeoJw?editors=001">http://codepen.io/netcraft/pen/yyeoJw?editors=001</a></p>
+</section>
+
+
+
+</section>
+
+
+
+<section>
+
+
+
+<section>
+
+
+
+<blockquote>
+<p>Exercise:<br><a href="http://codepen.io/netcraft/pen/myeYzN?editors=001">jQuery Events</a></p>
+</blockquote>
+</section>
+
+
+
+<section>
+
+
+
+<blockquote>
+<p>Solution<br><a href="http://codepen.io/netcraft/pen/wBKbQM?editors=001">jQuery Events Solution</a></p>
+</blockquote>
+</section>
+
+
+
+</section>
+
+
+
+<section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-ajax">Ajax</h2>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-jquery-get-jquery-post-jquery-getjson"><code>jQuery.get()</code> &amp; <code>jQuery.post()</code> &amp; <code>jQuery.getJSON()</code></h3>
+<p>Load data from the server using an HTTP GET/POST/JSONP request</p>
+<pre><code class="js">var jqxhr = $.get( &quot;example.php&quot;, function() {
+  alert( &quot;success&quot; );
+})
+  .done(function() {
+    alert( &quot;second success&quot; );
+  })
+  .fail(function() {
+    alert( &quot;error&quot; );
+  })
+  .always(function() {
+    alert( &quot;finished&quot; );
+  });
+</code></pre>
+<pre><code class="js">jQuery.get( url [, data ] [, success ] [, dataType ] )
+jQuery.post( url [, data ] [, success ] [, dataType ] )
+jQuery.getJSON( url [, data ] [, success ] )
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-jquery-ajax-settings"><code>jQuery.ajax([ settings ])</code></h3>
+<p>Perform an asynchronous HTTP (Ajax) request.</p>
+<pre><code class="js">var request = $.ajax({
+  url: &quot;script.php&quot;,
+  type: &quot;POST&quot;,
+  data: { id : menuId },
+  dataType: &quot;html&quot;
+});
+</code></pre>
+<p><strong>settings:</strong></p>
+<ul>
+<li>async</li>
+<li>crossDomain</li>
+<li>data</li>
+<li>dataType</li>
+<li>jsonp</li>
+<li>more …</li>
+</ul>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/EaVVVM">http://codepen.io/netcraft/pen/EaVVVM</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-load"><code>.load()</code></h3>
+<p>Load data from the server and place the returned HTML into the matched element.</p>
+<h3 id="hid-jquery-param"><code>jQuery.param()</code></h3>
+<p>Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.</p>
+</section>
+
+
+
+</section>
+
+
+
+<section>
+
+
+
+<section>
+
+
+
+<blockquote>
+<p>Exercise<br><a href="http://codepen.io/netcraft/pen/wBKJrR?editors=001">jQuery Ajax</a></p>
+</blockquote>
+</section>
+
+
+
+<section>
+
+
+
+<blockquote>
+<p>Solution:<br><a href="http://codepen.io/netcraft/pen/myeYZd?editors=001">jQuery Ajax Solution</a></p>
+</blockquote>
+</section>
+
+
+
+</section>
+
+
+
+<section>
+
+
+
+<h1 id="hid-the-end">The End</h1>
+<!-- In-Class Exercises -->
+
+</section>
+
+
+
+		</div>
+		<!-- End of slides -->
+	</div>
+	<!-- End of reveal -->
+
+	<script src="reveal.js/lib/js/head.min.js"></script>
+	<script src="reveal.js/js/reveal.js"></script>
+	<script src="dist/js/nc-reveal.min.js"></script>
+
+</body>
+</html>

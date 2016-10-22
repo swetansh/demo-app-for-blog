@@ -1,0 +1,433 @@
+<section>
+
+
+
+<h2 id="hid-what-is-grunt">What is Grunt?</h2>
+<blockquote>
+<p><a href="http://gruntjs.com/">Grunt</a> - The JavaScript Task Runner</p>
+</blockquote>
+</section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-why-do-we-need-it">Why do we need it?</h2>
+<blockquote>
+<p>Automate repetitive tasks</p>
+</blockquote>
+<ul>
+<li>Minification</li>
+<li>Compilation</li>
+<li>Unit Testing</li>
+<li>Linting</li>
+<li>etc.</li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-prerequisites">Prerequisites</h2>
+<ul>
+<li>Node.js</li>
+<li><code>npm</code></li>
+<li><code>package.json</code><ul>
+<li><code>npm init</code></li>
+<li>Store project dev dependencies (Grunt plugins)</li>
+</ul>
+</li>
+<li>Local <code>grunt</code> package</li>
+<li>Global <code>grunt-cli</code> package</li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-package-json-example"><code>package.json</code> Example</h3>
+<pre><code class="js">{
+    &quot;name&quot;: &quot;my-project-name&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;devDependencies&quot;: {
+        &quot;grunt&quot;: &quot;~0.4.5&quot;,
+        &quot;grunt-contrib-jshint&quot;: &quot;~0.10.0&quot;,
+        &quot;grunt-contrib-nodeunit&quot;: &quot;~0.4.1&quot;,
+        &quot;grunt-contrib-uglify&quot;: &quot;~0.5.0&quot;
+    }
+}
+</code></pre>
+<ul>
+<li><code>npm install</code> vs. <code>npm install grunt --save-dev</code></li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-grunt-cli">Grunt CLI</h2>
+<ul>
+<li>Install a global <code>grunt-cli</code> package</li>
+</ul>
+<pre><code class="js">npm install -g grunt-cli
+</code></pre>
+<ul>
+<li>This is not the task runner, it just allows running a version of Grunt next to a <code>Gruntfile.js</code></li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-grunt-help">Grunt help</h3>
+<pre><code class="js">grunt -h
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-gruntfile-js"><code>Gruntfile.js</code></h2>
+<blockquote>
+<p>A JS file that defines which plugins to load and tasks to run</p>
+</blockquote>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-example">Example</h3>
+<ul>
+<li><a href="http://codepen.io/netcraft/pen/GgobgK?editors=001">Gruntfile.js</a></li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-the-wrapper-function">The “wrapper” function</h3>
+<ul>
+<li>Basic Node module</li>
+</ul>
+<pre><code class="js">module.exports = function (grunt) {
+    // Do grunt-related things in here
+};
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-project-and-task-configuration">Project and task configuration</h3>
+<pre><code class="js">// Project configuration.
+grunt.initConfig({
+    pkg: grunt.file.readJSON(&#39;package.json&#39;),
+    uglify: {
+        options: {
+            banner: &#39;/*! &lt;%= pkg.name %&gt; &lt;%= grunt.template.today(&quot;yyyy-mm-dd&quot;) %&gt; */\n&#39;
+        },
+        target: {
+            src: &#39;src/js/&lt;%= pkg.name %&gt;.js&#39;,
+            dest: &#39;dist/js/&lt;%= pkg.name %&gt;.min.js&#39;
+        }
+    }
+});
+</code></pre>
+<ul>
+<li>Plugin settings will usually be set under a property of the same name (e.g. <code>uglify</code>)</li>
+<li>Everything else is just ignored by the plugins</li>
+<li>We can use template strings (<code>&lt;%= %&gt;</code>) inside string values</li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-loading-grunt-plugins-and-tasks">Loading Grunt plugins and tasks</h3>
+<ul>
+<li>Most commonly used tasks are already available as Grunt plugins</li>
+<li>If it’s set as a dependency in <code>package.json</code> and installed with <code>npm install</code>, we can use it in <code>Gruntfile.js</code></li>
+</ul>
+<pre><code class="js">// Load the plugin that provides the &quot;uglify&quot; task.
+grunt.loadNpmTasks(&#39;grunt-contrib-uglify&#39;);
+</code></pre>
+<ul>
+<li>We can check which tasks are available using <code>grunt -h</code></li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-setting-default-tasks">Setting default tasks</h3>
+<ul>
+<li>We can define one or more tasks to run by default when executing <code>grunt</code> in the CLI</li>
+</ul>
+<pre><code class="js">// Default task(s).
+grunt.registerTask(&#39;default&#39;, [&#39;uglify&#39;]);
+</code></pre>
+<ul>
+<li>Running these in the command line will do the same thing:</li>
+</ul>
+<pre><code class="js">grunt uglify
+grunt default
+grunt
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-uglifyjs">UglifyJS</h2>
+<blockquote>
+<p>JavaScript compressor/minifier (and more)</p>
+</blockquote>
+<p><a href="http://lisperator.net/uglifyjs/">UglifyJS</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-setup-an-uglify-task">Setup an <code>uglify</code> task</h3>
+<h4 id="hid-grunt-plugin">Grunt plugin</h4>
+<p><a href="https://github.com/gruntjs/grunt-contrib-uglify">grunt-contrib-uglify</a></p>
+<pre><code class="js">npm install grunt-contrib-uglify --save-dev
+</code></pre>
+<h4 id="hid-example">Example</h4>
+<p><a href="http://codepen.io/netcraft/pen/jEWjbB?editors=001">Grunt Uglify Setup</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-result">Result</h3>
+<pre><code class="js">&gt; grunt
+Running &quot;uglify:target&quot; (uglify) task
+&gt;&gt; 1 sourcemap created.
+&gt;&gt; 1 file created.
+
+Done, without errors.
+</code></pre>
+<h4 id="hid-detailed-info">Detailed Info</h4>
+<pre><code class="js">grunt --verbose
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-notes">Notes</h3>
+<ul>
+<li><code>options</code> is per the Uglify docs, <code>target</code> can be whatever</li>
+<li>If multiple targets are set, they will run one after the other</li>
+<li>We can run one or more specific targets</li>
+</ul>
+<pre><code class="js">grunt uglify:target
+grunt uglify:target:utils
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-exercise-20m">Exercise - 20m</h3>
+<ul>
+<li>Create a simple <code>package.json</code> (use <code>npm init</code>)</li>
+<li>Install <code>grunt-cli</code> globally</li>
+<li>Install <code>grunt</code> locally (with <code>--save-dev</code>)</li>
+<li>Install <code>grunt-contrib-uglify</code> locally (with <code>--save-dev</code>)</li>
+<li>Create a <code>Gruntfile.js</code> file that sets up an <code>uglify</code> task<ul>
+<li>Compress <code>src/js/main.js</code> into <code>dist/js/main.min.js</code></li>
+<li>Use options: <code>banner</code>, <code>mangle</code>, <code>compress</code>, <code>sourceMap</code></li>
+</ul>
+</li>
+<li>Run <code>grunt</code></li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-jshint">JSHint</h2>
+<blockquote>
+<p>Detects errors and potential problems in JavaScript code</p>
+</blockquote>
+<p><a href="http://jshint.com/">JSHint</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-setup-a-jshint-task">Setup a <code>jshint</code> task</h3>
+<h4 id="hid-grunt-plugin">Grunt plugin</h4>
+<p><a href="https://github.com/gruntjs/grunt-contrib-jshint">grunt-contrib-jshint</a></p>
+<pre><code class="js">npm install grunt-contrib-jshint --save-dev
+</code></pre>
+<h4 id="hid-example">Example</h4>
+<p><a href="http://codepen.io/netcraft/pen/zxrVMe?editors=001">Grunt JSHint Setup</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-exercise-10m">Exercise - 10m</h3>
+<ul>
+<li>Add a <code>jshint</code> task to run before the <code>uglify</code> task</li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-concat">Concat</h2>
+<blockquote>
+<p>Concatenate multiple files into a single file</p>
+</blockquote>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-setup-a-concat-task">Setup a <code>concat</code> task</h3>
+<h4 id="hid-grunt-plugin">Grunt plugin</h4>
+<p><a href="https://github.com/gruntjs/grunt-contrib-concat">grunt-contrib-concat</a></p>
+<pre><code class="js">npm install grunt-contrib-concat --save-dev
+</code></pre>
+<h4 id="hid-example">Example</h4>
+<p><a href="http://codepen.io/netcraft/pen/yyedwq?editors=001">Grunt Concat Setup</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-exercise-15m">Exercise - 15m</h3>
+<ul>
+<li>Save the <code>src</code> and <code>dest</code> folders settings in an object above the individual plugin’s settings<ul>
+<li>Use <code>&lt;%= %&gt;</code> templates in the files paths to reference it</li>
+</ul>
+</li>
+<li>Update the <code>jshint</code> task to check all files under <code>src/js</code></li>
+<li>Add a <code>concat</code> task to run after the <code>jshint</code> task<ul>
+<li>Combine all <code>js</code> files under <code>src/js</code> into <code>dist/js/all.js</code></li>
+</ul>
+</li>
+<li>Update the <code>uglify</code> task to run on the end result file <code>all.js</code></li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-solution">Solution</h3>
+<ul>
+<li><a href="http://codepen.io/netcraft/pen/Qwyeyx?editors=001">Ex. Grunt JSHint/Concat/Uglify Solution</a></li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-watch">Watch</h2>
+<blockquote>
+<p>Do something when specific file(s) change</p>
+</blockquote>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-setup-a-watch-task">Setup a <code>watch</code> task</h3>
+<h4 id="hid-grunt-plugin">Grunt plugin</h4>
+<p><a href="https://github.com/gruntjs/grunt-contrib-watch">grunt-contrib-watch</a></p>
+<pre><code class="js">npm install grunt-contrib-watch--save-dev
+</code></pre>
+<h4 id="hid-example">Example</h4>
+<p><a href="http://codepen.io/netcraft/pen/QwyeKB?editors=001">Grunt Watch Setup</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-exercise-10m">Exercise - 10m</h3>
+<ul>
+<li>Add a <code>watch</code> task that will watch all <code>js</code> files under <code>src/js</code> and trigger the <code>default</code> task on changes</li>
+<li>Run <code>grunt watch</code> to initialize</li>
+</ul>
+</section>

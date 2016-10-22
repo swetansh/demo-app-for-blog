@@ -1,0 +1,345 @@
+<section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-selectors">Selectors</h2>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-jquery-selector-context"><code>jQuery( selector [, context ] )</code></h3>
+<p><strong>selector</strong><br>Type: Selector<br>A string containing a selector expression</p>
+<p><strong>context</strong><br>Type: Element or jQuery<br>A DOM Element, Document, or jQuery to use as context</p>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/WbvgoB">http://codepen.io/netcraft/pen/WbvgoB</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-jquery-element"><code>jQuery( element )</code></h3>
+<p><strong>element</strong><br>Type: Element<br>A DOM element to wrap in a jQuery object.</p>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/jEPvVg">http://codepen.io/netcraft/pen/jEPvVg</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-jquery-elementarray"><code>jQuery( elementArray )</code></h3>
+<p><strong>elementArray</strong><br>Type: Array<br>An array containing a set of DOM elements to wrap in a jQuery object.</p>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/MYwqJw">http://codepen.io/netcraft/pen/MYwqJw</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-jquery-selection"><code>jQuery( selection )</code></h3>
+<p><strong>selection</strong><br>Type: jQuery<br>An existing jQuery object to clone.</p>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/qEdMRj">http://codepen.io/netcraft/pen/qEdMRj</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-filter-vs-find"><code>.filter()</code> vs. <code>.find()</code></h3>
+<pre><code class="js">$( &quot;ul&quot; )
+  .find( &quot;li&quot; )
+  .filter( &quot;:even&quot; );
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/MYwqpw">http://codepen.io/netcraft/pen/MYwqpw</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-chaining-with-end">Chaining with <code>.end()</code></h3>
+<p>some jquery function return a jquery object which allow chaining (usually manipulative function)</p>
+<pre><code class="js">$( &quot;li&quot; )
+  .filter( &quot;:even&quot; )
+    .end()
+  .filter( &quot;:odd&quot; );
+</code></pre>
+<p>Preformance check:<br><a href="http://jsperf.com/jquery-chaining-vs-separation/2">http://jsperf.com/jquery-chaining-vs-separation/2</a></p>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/WbvgpB">http://codepen.io/netcraft/pen/WbvgpB</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-get-index-vs-index"><code>.get(index)</code> vs. <code>[index]</code></h3>
+<p>if one want to get the element  without the jquery wrapper he can use .get() or the array notation</p>
+<pre><code class="js">// will get the first element
+$(&#39;li&#39;).get(0);
+$(&#39;li&#39;)[0];
+
+// will get the entire element array
+$(&#39;li&#39;).get();
+</code></pre>
+<p>Performance check:<br><a href="http://jsperf.com/jquery-array-access-vs-get-method">http://jsperf.com/jquery-array-access-vs-get-method</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-eq"><code>.eq()</code></h3>
+<p>Reduce the set of matched elements to the one at the specified index</p>
+<pre><code class="js">$( &quot;ul&quot; )
+  .find( &quot;li&quot; )
+  .eq( 2 );
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-each"><code>.each()</code></h3>
+<p>Iterate over a jQuery object, executing a function for each matched element</p>
+</section>
+
+
+
+</section>
+
+
+
+<section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-manipulation">Manipulation</h2>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-attributes">Attributes</h3>
+<h4 id="hid-attr-vs-prop"><code>.attr()</code> vs . <code>prop()</code></h4>
+<p>.prop() refer to property, when working with elements it first iterate the object properties and then search in the object attributes.</p>
+<p>Get attribute:</p>
+<pre><code class="js">$( &quot;p&quot; ).html( &quot;.attr( &#39;checked&#39; ): &lt;b&gt;&quot; + $input.attr( &quot;checked&quot; );
+</code></pre>
+<p>Set attribute</p>
+<pre><code class="js">$( &quot;#greatphoto&quot; ).attr( &quot;alt&quot;, &quot;Beijing Brush Seller&quot; );
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/zxGRWJ">http://codepen.io/netcraft/pen/zxGRWJ</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-val"><code>.val()</code></h4>
+<p>get the current value of the first element in the set of matched elements.</p>
+<pre><code class="js">$( &quot;.someinput&quot; ).val();
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/raVqMY">http://codepen.io/netcraft/pen/raVqMY</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-serialize"><code>.serialize()</code></h4>
+<p>serialize the entire form to query string</p>
+<pre><code class="js">$( &quot;form&quot; ).serialize();
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-position-offset"><code>.position()</code> &amp; <code>.offset()</code></h4>
+<h5 id="hid-offset"><code>.offset()</code></h5>
+<p>Description: Get the current coordinates of the first element in the set of matched elements, <strong>relative to the document.</strong></p>
+<h5 id="hid-position"><code>.position()</code></h5>
+<p>Description: Get the current coordinates of the first element in the set of matched elements, <strong>relative to the offset parent.</strong></p>
+<h4 id="hid-text"><code>.text()</code></h4>
+<p>Get the combined text contents of each element in the set of matched elements, including their descendants</p>
+<pre><code class="js">$( &quot;div.demo-container&quot; ).text();
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/MYwPmv">http://codepen.io/netcraft/pen/MYwPmv</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-style">Style</h3>
+<h4 id="hid-css"><code>.css()</code></h4>
+<p>Get the value of a style property for the first element in the set of matched elements or set one or more CSS properties for every matched element</p>
+<pre><code class="js">$( &quot;li&quot; ).filter( &quot;:even&quot; ).css( &quot;background-color&quot;, &quot;red&quot; );
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/jEPZEM">http://codepen.io/netcraft/pen/jEPZEM</a></p>
+</section>
+
+
+
+</section>
+
+
+
+<section>
+
+
+
+<section>
+
+
+
+<blockquote>
+<p>Exercise:<br><a href="http://codepen.io/netcraft/pen/QwbZqd?editors=001">jQuery Basics</a></p>
+</blockquote>
+</section>
+
+
+
+<section>
+
+
+
+<blockquote>
+<p>Solution<br><a href="http://codepen.io/netcraft/pen/empaQy?editors=001">jQuery Basics Solution</a></p>
+</blockquote>
+</section>
+
+
+
+</section>
+
+
+
+<section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-creating-elements">Creating elements</h3>
+<h4 id="hid-jquery-html-ownerdocument-appendto"><code>jQuery( html [, ownerDocument ] )</code> &amp; <code>.appendTo()</code></h4>
+<p><strong>html</strong><br>Type: htmlString<br>A string of HTML to create on the fly. Note that this parses HTML, not XML.</p>
+<p><strong>ownerDocument</strong><br>Type: document<br>A document in which the new elements will be created.</p>
+<pre><code class="js">$(&#39;&lt;div&gt;text&lt;/div&gt;&#39;).appendTo(&#39;body&#39;);
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/gbpQxR">http://codepen.io/netcraft/pen/gbpQxR</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-append-appendto"><code>.append()</code> &amp; <code>.appendTo()</code></h4>
+<p>Insert content, specified by the parameter, to the end of each element in the set of matched elements</p>
+<pre><code class="js">$( &quot;.container&quot; ).append( $( &quot;h2&quot; ) );
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-jquery-html-attributes"><code>jQuery( html, attributes )</code></h4>
+<p><strong>html</strong><br>Type: htmlString<br>A string defining a single, standalone, HTML element (e.g. <code>&lt;div/&gt;</code> or <code>&lt;div&gt;&lt;/div&gt;</code>).</p>
+<p><strong>attributes</strong><br>Type: PlainObject<br>An object of attributes, events, and methods to call on the newly-created element.</p>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/raVQzb">http://codepen.io/netcraft/pen/raVQzb</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-wrap-unwrap-wrapall"><code>.wrap()</code> &amp; <code>.unwrap()</code> &amp; <code>.wrapAll()</code></h4>
+<p>Wrap an HTML structure around each element in the set of matched elements</p>
+<pre><code class="js">$( &quot;.inner&quot; ).wrap( &quot;&lt;div class=&#39;container&#39;&gt;&lt;/div&gt;&quot; );
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/GgJVMX">http://codepen.io/netcraft/pen/GgJVMX</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h4 id="hid-html"><code>.html()</code></h4>
+<p> Get the HTML contents of the first element in the set of matched elements.</p>
+<pre><code class="js">$( &quot;div.demo-container&quot; ).html();
+</code></pre>
+<p>Example:<br><a href="http://codepen.io/netcraft/pen/emNqPB">http://codepen.io/netcraft/pen/emNqPB</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-dom-removal">DOM Removal</h3>
+<h4 id="hid-empty-remove"><code>.empty()</code> &amp; <code>.remove()</code></h4>
+<p>Remove all child nodes of the set of matched elements from the DOM.</p>
+<pre><code class="js">$( &quot;.container&quot; ).empty();
+</code></pre>
+<p>Remove the set of matched elements from the DOM.</p>
+<pre><code class="js">$( &quot;.inner&quot; ).remove();
+</code></pre>
+<p><code>remove()</code><br><a href="http://codepen.io/netcraft/pen/LEVwMQ">http://codepen.io/netcraft/pen/LEVwMQ</a></p>
+<p><code>empty()</code><br><a href="http://codepen.io/netcraft/pen/NPqQoK">http://codepen.io/netcraft/pen/NPqQoK</a></p>
+</section>
+
+
+
+</section>

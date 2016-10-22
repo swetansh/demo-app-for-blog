@@ -1,0 +1,59 @@
+			<!-- Blog Entries Column -->
+			<section class="col-md-8" ng-cloak>
+				<h1 class="page-header">All Posts</h1>
+				<!-- Begin Post -->
+				<article ng-repeat="posts in postsData 	| startFrom: startIndex 
+														| limitTo: 3 
+														| searchBy: searchText : 'title' 
+														| searchBy: searchText : 'author' 
+														| searchBy: searchText : 'tags'">
+					<header>
+						<h2>
+							<a ng-href="#/post/{{posts.title | removeSpace}}" ng-click="innerPost(posts.source)">{{posts.title}}</a>
+						</h2>
+
+						<p>
+							<small class="glyphicon glyphicon-user"></small>
+							by <a href="#">{{posts.author}}</a>
+						</p>
+						<p>
+							<small class="glyphicon glyphicon-time"></small>
+							Posted on {{posts.date | date:'dd MMM, yyyy'}}
+						</p>
+					</header>
+					<hr>
+
+					<figure>
+						<img class="img-responsive" ng-src="{{posts.image}}"
+							alt="">
+					</figure>
+					<hr>
+
+					<!-- Post Description -->
+					<p>{{posts.description}}</p>
+					<br>
+
+					<footer class="clearfix">
+						<p class="pull-left">
+							<b>Tags:&nbsp;</b>
+							<a href="#" class="label label-default label-tag" ng-repeat="tag in posts.tags">{{tag}}</a>
+						</p>
+
+						<a class="btn btn-primary pull-right" href="post.html">
+							Read More <i class="glyphicon glyphicon-chevron-right"></i>
+						</a>
+					</footer>
+				</article>
+				<hr>
+				<!-- End of Post -->
+
+				<!-- Pager -->
+				<ul class="pager">
+					<li class="previous">
+						<a ng-click="prevPosts()" ng-hide="hideMe">&larr; Older</a>
+					</li>
+					<li class="next">
+						<a ng-click="nextPosts()" ng-hide="!startIndex">Newer &rarr;</a>
+					</li>
+				</ul>
+			</section>

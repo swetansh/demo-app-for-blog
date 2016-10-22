@@ -1,0 +1,63 @@
+<h2 id="hid-custom-tasks">Custom Tasks</h2>
+<p>Basic Gruntfile with a custom task that doesn’t use Grunt plugins or configuration</p>
+<pre><code class="js">module.exports = function (grunt) {
+    grunt.registerTask(&#39;test&#39;, &#39;Log some stuff.&#39;, function () {
+        grunt.log.writeln(&#39;Logging some stuff...&#39;).ok();
+    });
+};
+</code></pre>
+<ul>
+<li>Check with <code>grunt -h</code></li>
+<li>Run <code>test</code></li>
+</ul>
+<pre><code class="js">&gt; grunt test
+Running &quot;test&quot; task
+Logging some stuff...
+OK
+
+Done, without errors.
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-alias-tasks">Alias Tasks</h3>
+<blockquote>
+<p>Setup a task name that runs other tasks, with optional arguments</p>
+</blockquote>
+<pre><code class="js">module.exports = function (grunt) {
+    grunt.registerTask(&#39;test&#39;, &#39;Log some stuff.&#39;, function (str) {
+        grunt.log.writeln(this.name, str);
+    });
+
+    grunt.registerTask(&#39;hi&#39;, [&#39;test:hello&#39;, &#39;test:world&#39;]);
+};
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-failing-tasks">Failing tasks</h3>
+<pre><code class="js">grunt.registerTask(&#39;test&#39;, &#39;Say hi!&#39;, function (str) {
+    if (!str) {
+        grunt.log.error(&#39;Expecting an argument to be passed.&#39;);
+        return false;
+    }
+
+    grunt.log.writeln(this.name, str);
+});
+
+grunt.registerTask(&#39;hi&#39;, [&#39;test&#39;, &#39;test:World&#39;]);
+</code></pre>
+<ul>
+<li>Subsequent tasks will be aborted</li>
+</ul>
+</section>

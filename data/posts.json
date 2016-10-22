@@ -1,0 +1,76 @@
+{
+	"posts": [
+		{
+			"title": "AngularJS - Controllers",
+			"author": "Ilan Cohen",
+			"date": "1421186400000",
+			"tags": ["JavaScript", "AngularJS"],
+			"source": "data/posts/AngularJS - Controllers.html",
+			"image": "data/portfolio/fullsize/1.jpg",
+			"description": ""
+		},
+		{
+			"title": "AngularJS - Modules",
+			"author": "Ilan Cohen",
+			"date": "1421186400000",
+			"tags": ["JavaScript", "AngularJS"],
+			"source": "data/posts/AngularJS - Modules.html",
+			"image": "data/portfolio/fullsize/2.jpg",
+			"description": ""
+		},
+		{
+			"title": "AngularJS - Routes",
+			"author": "Ilan Cohen",
+			"date": "1421186400000",
+			"tags": ["JavaScript", "AngularJS"],
+			"source": "data/posts/AngularJS - Routes.html",
+			"image": "data/portfolio/fullsize/3.jpg",
+			"description": ""
+		},
+		{
+			"title": "AngularJS - Services",
+			"author": "Ilan Cohen",
+			"date": "1421186400000",
+			"tags": ["JavaScript", "AngularJS"],
+			"source": "data/posts/AngularJS - Services.html",
+			"image": "data/portfolio/fullsize/4.jpg",
+			"description": ""
+		},
+		{
+			"title": "Grunt - Custom Tasks",
+			"author": "Alex Ilyaev",
+			"date": "1418162400000",
+			"tags": ["Grunt", "Tools"],
+			"source": "data/posts/Grunt - Custom Tasks.html",
+			"image": "data/portfolio/fullsize/5.jpg",
+			"description": ""
+		},
+		{
+			"title": "Grunt - Intro",
+			"author": "Alex Ilyaev",
+			"date": "1418162400000",
+			"tags": ["Grunt", "Tools"],
+			"source": "data/posts/Grunt - Intro.html",
+			"image": "data/portfolio/fullsize/6.jpg",
+			"description": ""
+		},
+		{
+			"title": "jQuery - Events, AJAX",
+			"author": "Amit Choukroun",
+			"date": "1417557600000",
+			"tags": ["JavaScript", "jQuery"],
+			"source": "data/posts/jQuery - Events, AJAX.html",
+			"image": "data/portfolio/fullsize/1.jpg",
+			"description": ""
+		},
+		{
+			"title": "jQuery - Selectors, DOM",
+			"author": "Amit Choukroun",
+			"date": "1417384800000",
+			"tags": ["JavaScript", "jQuery"],
+			"source": "data/posts/jQuery - Selectors, DOM.html",
+			"image": "data/portfolio/fullsize/2.jpg",
+			"description": ""
+		}
+	]
+}

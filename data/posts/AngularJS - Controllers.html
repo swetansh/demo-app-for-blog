@@ -1,0 +1,227 @@
+<section>
+
+
+
+<section>
+
+
+
+<h2 id="hid-controllers-extra-topics">Controllers - Extra topics</h2>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-scope-and-functions-on-scope">$scope and functions on $scope</h3>
+<p>The <code>$scope</code> basically serves as the data model.</p>
+<p>More info from the Angular website:</p>
+<ul>
+<li><p>Scopes provide APIs (<code>$watch</code>) to observe model mutations.</p>
+</li>
+<li><p>Scopes provide APIs (<code>$apply</code>) to propagate any model changes through the system into the view from outside of the “Angular realm” (Controllers, Services, Angular event handlers).</p>
+</li>
+<li><p>Scopes can be nested to limit access to the properties of application components while providing access to shared model properties. Nested scopes are either <strong>child scopes</strong> or <strong>isolate scopes</strong>. A <strong>child scope</strong> (prototypically) inherits properties from its parent scope. An <strong>isolate scope</strong> does not.</p>
+</li>
+<li><p>Scopes provide context against which expressions are evaluated. For example, a <code>{{userName}}</code> expression is meaningless, unless it is evaluated against a specific scope which defines the <code>userName</code> property.</p>
+</li>
+</ul>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-prototypal-inheritance">Prototypal inheritance</h3>
+<p>There is always one root scope, but chlid scopes can exist, and they inherit (prototypically) from their parent scope(s):</p>
+<pre><code class="handlebars">&lt;div ng-app=&quot;scopeExample&quot;&gt;
+    &lt;div class=&quot;show-scope-demo&quot;&gt;
+        &lt;div ng-controller=&quot;GreetController&quot;&gt;
+            Hello {{name}}!
+        &lt;/div&gt;
+
+        &lt;div ng-controller=&quot;ListController&quot;&gt;
+            &lt;ol&gt;
+                &lt;li ng-repeat=&quot;name in names&quot;&gt;
+                    {{name}} from {{department}}
+                &lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<pre><code class="js">angular.module(&#39;scopeExample&#39;, [])
+
+.controller(&#39;GreetController&#39;, [&#39;$scope&#39;, &#39;$rootScope&#39;,
+    function ($scope, $rootScope) {
+        $scope.name = &#39;World&#39;;
+        $rootScope.department = &#39;Angular&#39;;
+    }
+]);
+
+.controller(&#39;ListController&#39;, [&#39;$scope&#39;,
+    function ($scope) {
+        $scope.names = [&#39;Igor&#39;, &#39;Misko&#39;, &#39;Vojta&#39;];
+    }
+]);
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<pre><code class="css">.show-scope-demo.ng-scope,
+.show-scope-demo .ng-scope  {
+    border: 1px solid red;
+    margin: 3px;
+}
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-passing-by-reference-value">Passing by reference/value</h3>
+<p>Remember that there is difference between this:</p>
+<pre><code class="js">var str = &#39;string&#39;;
+
+function updateString(strParam) {
+    strParam = &#39;other string&#39;;
+}
+updateString(str);
+console.log(str);
+</code></pre>
+<p>And this:</p>
+<pre><code class="js">var strObject = {
+    str: &#39;string&#39;
+};
+function updateString(strParam) {
+    strParam.str = &#39;other string&#39;;
+}
+updateString(strObject);
+console.log(strObject.str);
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<p>So too, this:</p>
+<pre><code class="handlebars">&lt;div ng-app=&quot;scopeExample&quot;&gt;
+    &lt;div ng-controller=&quot;ParentController&quot;&gt;
+        &lt;input type=&quot;text&quot; ng-model=&quot;name&quot;&gt;
+        Hello {{name}}!
+        &lt;div ng-controller=&quot;ChildController&quot;&gt;
+            &lt;input type=&quot;text&quot; ng-model=&quot;name&quot;&gt;
+            Hello {{name}}!
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<pre><code class="js">angular.module(&#39;scopeExample&#39;, [])
+    .controller(&#39;ParentController&#39;, [&#39;$scope&#39;,
+        function ($scope) {
+            $scope.name = &#39;World&#39;;
+        }
+    ])
+    .controller(&#39;ChildController&#39;, [&#39;$scope&#39;,
+        function ($scope) { /* ... */ }
+    ]);
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<p>is different than this:</p>
+<pre><code class="handlebars">&lt;div ng-app=&quot;scopeExample&quot;&gt;
+    &lt;div ng-controller=&quot;ParentController&quot;&gt;
+        &lt;input type=&quot;text&quot; ng-model=&quot;data.name&quot;&gt;
+        Hello {{data.name}}!
+        &lt;div ng-controller=&quot;ChildController&quot;&gt;
+            &lt;input type=&quot;text&quot; ng-model=&quot;name&quot;&gt;
+            Hello {{data.name}}!
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<pre><code class="js">angular.module(&#39;scopeExample&#39;, [])
+    .controller(&#39;ParentController&#39;, [&#39;$scope&#39;,
+        function ($scope) {
+            $scope.data = {
+                name: &#39;World&#39;
+            };
+        }
+    ])
+    .controller(&#39;ChildController&#39;, [&#39;$scope&#39;,
+        function ($scope) { /* ... */ }
+    ]);
+</code></pre>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-controller-as-syntax">“<code>Controller as</code>“ syntax</h3>
+<p><a href="https://docs.angularjs.org/api/ng/directive/ngController">AngularJS.org - ngController</a><br><a href="http://plnkr.co/edit/EndHxw6QcY3dKAZZhEXD?p=preview">Controller As - Example</a></p>
+</section>
+
+
+
+<section>
+
+
+
+<h3 id="hid-built-in-scope-methods">Built-In <code>$scope</code> methods</h3>
+<p><strong><code>$watch</code></strong></p>
+<blockquote>
+<p>Allows listening to variables changes.</p>
+</blockquote>
+<pre><code class="js">$scope.$watch(
+    &#39;sampleVar&#39;,
+
+    // This is the change listener, called when the value returned from the above function changes
+    function(newValue, oldValue) {
+        if ( newValue !== oldValue ) {
+            console.log(newValue, oldValue);
+            $scope.sampleVar2 = $scope.sampleVar + $scope.sampleVar;
+        }
+    },
+    false
+);
+</code></pre>
+<ul>
+<li>Affects performance if used a lot or if doing heavy lifting. Don’t abuse it! </li>
+</ul>
+</section>
+
+
+
+</section>
